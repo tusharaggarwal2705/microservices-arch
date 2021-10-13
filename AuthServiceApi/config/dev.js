@@ -27,6 +27,7 @@ module.exports = {
         FORBIDDEN: 403,
         NOT_FOUND: 404,
         REQUEST_TIMED_OUT: 408,
+        ALREADY_EXISTS: 409,
         INTERNAL_SERVER: 500,
         BAD_GATEWAY: 502,
         SERVICE_UNAVAILABLE: 503,

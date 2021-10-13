@@ -36,32 +36,38 @@ const UserSchema = new mongoose.Schema({
             'Password should be alphanumeric.'
         ]
     },
-    mobileNumber: {
+    phoneNumber: {
         type: Number,
-        unique: true
+        unique: true,
+        required: true
     },
 
-    salt:{
-        type:String,
-        required:true
+    salt: {
+        type: String,
+        default: "",
     }
 });
 
 UserSchema.pre('save', function (callback) {
-    this.salt=bcrypt.genSaltSync(20);
+    this.salt = bcrypt.genSaltSync(20);
     this.password = bcrypt.hashSync(this.password, 10);
     callback();
 });
 
 UserSchema.methods.verifyPassword = async function (password) {
-    return await bcrypt.compare(password, this.password);
+    try {
+        let result=await bcrypt.compare(password, this.password);
+        return result;
+    } catch (error) {
+        throw {error}
+    }
 };
 
-UserSchema.pre("findOneAndUpdate",function(callback){
-    let updateObj=this._update.$set
-    if(updateObj && updateObj.password){
-        updateObj.salt=bcrypt.genSaltSync(20),
-        updateObj.password=bcrypt.hashSync(updateObj.password,10)
+UserSchema.pre("findOneAndUpdate", function (callback) {
+    let updateObj = this._update.$set
+    if (updateObj && updateObj.password) {
+        updateObj.salt = bcrypt.genSaltSync(20),
+            updateObj.password = bcrypt.hashSync(updateObj.password, 10)
     }
     callback();
 });

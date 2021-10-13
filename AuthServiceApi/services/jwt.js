@@ -4,18 +4,18 @@ const fs = require('fs');
 
 exports.getJwtToken = async (userId, email, subject, salt) => {
     try {
-        let privateKey = fs.readFileSync('../private.Key', 'utf8');
+        let privateKey = fs.readFileSync('private.key', 'utf8');
 
         let signOptions = {
-            subject: subject,
+            subject: email,
             issuer: JWT_ISSUER,
             audience: JWT_AUDIENCE,
             expiresIn: JWT_EXPIRATION_TIME,
             algorithm: JWT_ALGORITHM
         };
 
-        return await jwt.sign({ userId, salt }, privateKey, signOptions);
+        return  jwt.sign({ userId, salt }, privateKey, signOptions);
     } catch (error) {
-        throw error;
+        throw {error};
     }
 }
