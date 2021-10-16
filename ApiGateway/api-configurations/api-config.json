@@ -1,0 +1,24 @@
+{
+    "services":{
+        "auth":[
+            {
+                "apiName":"/auth/register",
+                "host":"http://localhost",
+                "port":5001,
+                "url":"http://localhost:5001",
+                "method":"POST",
+                "isAuth":false
+            },
+            {
+
+                "apiName":"/auth/login",
+                "host":"http://localhost",
+                "port":5001,
+                "url":"http://localhost:5001",
+                "method":"POST",
+                "isAuth":false
+            }
+            
+        ]
+    }
+}
